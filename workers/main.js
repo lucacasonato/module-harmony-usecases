@@ -1,4 +1,5 @@
 const mod = module {
+  import "import-mapped-specifier";
   import { add } from "./math.js";
   export function add(a, b) {
     return a + b;

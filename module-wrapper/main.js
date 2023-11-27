@@ -1,13 +1,16 @@
-// doesn't work with star re-export
 import module inputMod from "./input.js";
 import module instrumentMod from "./instrument.js";
 
 const exports = [];
 for (const entry of inputMod.source.exports) {
-  if (entry.name !== null) {
-    exports.push(entry.name);
+  switch (entry.type) {
+    case "named":
+      exports.push(entry.name);
+      break;
+    case "star":
+      // needs special case because linker is eager, skipped for now
+      break;
   }
-}
 
 let src = "import * as input from 'original'; import instrument from 'instrument';\n";
 for (const name of exports) {
